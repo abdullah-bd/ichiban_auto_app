@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:ichiban_auto/app/routes/app_pages.dart';
 
 import '../../../../theme/Colors.dart';
 import '../../../../theme/image_assets.dart';
@@ -57,12 +58,12 @@ class AuthView extends GetView<AuthController> {
                               fillColor: Colors.white,
                               filled: true,
                               prefixIcon: Icon(
-                                Icons.account_circle_outlined,
+                                Icons.email_outlined,
                                 color: primaryDarkColor,
                               ),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 4.h, horizontal: 16.w),
-                              hintText: "Employee ID",
+                              hintText: "Email",
                               hintStyle: TextStyle(color: primaryColor),
                             ),
                           ),
@@ -122,6 +123,24 @@ class AuthView extends GetView<AuthController> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed(Routes.REGISTRATION);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                text12("Don't have an account? ",
+                                    color: Colors.white),
+                                text12("Register here.",
+                                    color: secondaryColor,),
+                              ],
                             ),
                           ),
                           SizedBox(

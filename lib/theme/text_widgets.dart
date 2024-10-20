@@ -92,3 +92,4 @@ Text text24(String text,
     overflow: TextOverflow.ellipsis,
   );
 }
+

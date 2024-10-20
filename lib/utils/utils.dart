@@ -159,3 +159,4 @@ bool validateStructure(String value) {
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(value);
 }
+enum Role { admin,mechanic }

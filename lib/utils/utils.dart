@@ -118,7 +118,7 @@ class Utils {
 
   static void showControllerError(response) {
     EasyLoading.dismiss();
-    getxSnackbar("${response.message}", primaryDarkColor);
+    getxSnackbar("${response}", primaryDarkColor);
   }
 
   static String formatTime(int seconds) {

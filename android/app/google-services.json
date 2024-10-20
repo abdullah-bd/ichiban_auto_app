@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1085089685179",
+    "firebase_url": "https://ichiban-auto-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ichiban-auto-app",
+    "storage_bucket": "ichiban-auto-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085089685179:android:f4a55dd4c31761abca139e",
+        "android_client_info": {
+          "package_name": "nz.co.ichibanauto.ichiban_auto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV8rZJKUrfryVtXDsLhnfcZb1KOj2V54I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

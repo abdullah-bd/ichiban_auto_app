@@ -49,13 +49,10 @@ class AuthView extends GetView<AuthController> {
 
                           TextFormField(
                             cursorColor: primaryColor,
-                            controller: controller.usernameController,
+                            controller: controller.emailController,
                             enableInteractiveSelection: false,
-                            keyboardType: TextInputType.number,
-                            maxLength: 12,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                            ],
+                            keyboardType: TextInputType.emailAddress,
+
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
@@ -68,6 +65,9 @@ class AuthView extends GetView<AuthController> {
                               hintText: "Employee ID",
                               hintStyle: TextStyle(color: primaryColor),
                             ),
+                          ),
+                          SizedBox(
+                            height: 16.h,
                           ),
 
                           TextFormField(
@@ -106,8 +106,7 @@ class AuthView extends GetView<AuthController> {
 
                           GestureDetector(
                             onTap: () {
-                              // controller.otpController.text = "1111";
-                              // controller.login();
+                              controller.signInWithEmailAndPassword();
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(

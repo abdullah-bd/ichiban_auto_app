@@ -32,7 +32,6 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                           icon: const Icon(
                             Icons.menu,
                             color: Colors.white,
-                            size: 24,
                           ),
                         ),
                       ],
@@ -42,36 +41,34 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                     flex: 3,
                     child: Center(
                       child: text16(
-                        "Prime Link",
+                        "Ichiban Auto",
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  Obx(
-                    () => Expanded(
-                      flex: 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
                             onPressed: () {
                             },
                             icon: Padding(
                               padding: EdgeInsets.only(right: 4.0),
-                                child: Icon(
-                                  Icons.logout,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
+                              child: Icon(
+                                Icons.logout,
+                                color: Colors.white,
+                                size: 24,
+                              ),
 
                             )
-                          )
+                        )
 
-                        ],
-                      ),
+                      ],
                     ),
-                  )
+                  ),
                 ]),
               ),
             ),

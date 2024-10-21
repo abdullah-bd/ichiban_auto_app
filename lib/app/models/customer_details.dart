@@ -8,4 +8,12 @@ class CustomerDetails {
     required this.phoneNumber,
     required this.email,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'phoneNumber': phoneNumber,
+      'email': email,
+    };
+  }
 }

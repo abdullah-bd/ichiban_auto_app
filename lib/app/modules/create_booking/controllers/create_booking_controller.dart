@@ -1,8 +1,17 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:ichiban_auto/app/models/booking_details.dart';
+import 'package:ichiban_auto/app/models/car_details.dart';
+import 'package:ichiban_auto/app/models/customer_details.dart';
+import 'package:ichiban_auto/app/models/user_model.dart';
+import 'package:ichiban_auto/utils/extensions.dart';
 import 'package:intl/intl.dart';
 
 class CreateBookingController extends GetxController {
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+
   final titleController = TextEditingController();
   final startDateController = TextEditingController();
   final startTimeController = TextEditingController();
@@ -24,6 +33,28 @@ class CreateBookingController extends GetxController {
   var endTime = Rxn<TimeOfDay>();
 
   final formKey = GlobalKey<FormState>();
+
+  var arrayOfMechanic = <UserModel>[].obs;
+  UserModel? selectedMechanic;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _database.ref("mechanic").onValue.listen((event) {
+      var arrayOfMechanic = <UserModel>[];
+      var data = event.snapshot.value as Map;
+      data.forEach((key, value) {
+        arrayOfMechanic.add(UserModel.fromJson(value));
+      });
+      print(arrayOfMechanic);
+      this.arrayOfMechanic.value = arrayOfMechanic;
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 
   // Function to set the selected date
   void pickStartDate(DateTime date) {
@@ -81,20 +112,32 @@ class CreateBookingController extends GetxController {
     );
   }
 
-  @override
-  void onClose() {
-    titleController.dispose();
-    startDateController.dispose();
-    startTimeController.dispose();
-    endDateController.dispose();
-    endTimeController.dispose();
-    carMakeController.dispose();
-    carModelController.dispose();
-    carYearController.dispose();
-    carRegistrationController.dispose();
-    customerNameController.dispose();
-    customerPhoneController.dispose();
-    customerEmailController.dispose();
-    super.onClose();
+  Future<void> submitBooking() async {
+    if (!formKey.currentState!.validate()) return;
+    var path =
+        "${startDate.value!.day}d${startDate.value!.month}m${startDate.value!.year}y";
+
+    var bookingDetails = BookingDetails(
+        title: titleController.text,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
+        carDetails: CarDetails(
+            make: carMakeController.text,
+            model: carModelController.text,
+            year: int.parse(carYearController.text),
+            registrationPlate: carRegistrationController.text),
+        customerDetails: CustomerDetails(
+            name: customerNameController.text,
+            phoneNumber: customerPhoneController.text,
+            email: customerEmailController.text));
+
+    _database
+        .ref("booking/$path/${selectedMechanic?.email!.firebaseEmail}")
+        .push()
+        .set(bookingDetails.toJson())
+        .then((value) {
+      Get.back();
+      EasyLoading.showSuccess("Successfully created booking");
+    });
   }
 }

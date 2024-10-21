@@ -45,7 +45,7 @@ dependencies:
   firebase_database: ^11.1.4
   syncfusion_flutter_calendar: ^27.1.53
   intl: ^0.19.0
-  dropdown_search: ^6.0.1
+  dropdown_search: ^5.0.6
 
 dev_dependencies:
   flutter_test:

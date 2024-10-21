@@ -15,4 +15,14 @@ class BookingDetails {
     required this.carDetails,
     required this.customerDetails,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'startDateTime': startDateTime.toIso8601String(),
+      'endDateTime': endDateTime.toIso8601String(),
+      'carDetails': carDetails.toJson(),
+      'customerDetails': customerDetails.toJson(),
+    };
+  }
 }

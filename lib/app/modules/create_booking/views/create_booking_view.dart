@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:ichiban_auto/app/models/user_model.dart';
@@ -48,10 +49,7 @@ class CreateBookingView extends GetView<CreateBookingController> {
                 ),
 
                 const SizedBox(height: 8),
-                const Text(
-                  "FROM",
-                  style: TextStyle(color: primaryDarkColor, fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                text14("FROM"),
                 const SizedBox(height: 2),
                 Row(
                   children: [
@@ -129,10 +127,7 @@ class CreateBookingView extends GetView<CreateBookingController> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  "TO",
-                  style: TextStyle(color: primaryDarkColor, fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                text14("TO"),
                 const SizedBox(height: 2),
                 Row(
                   children: [
@@ -210,10 +205,7 @@ class CreateBookingView extends GetView<CreateBookingController> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "CAR DETAILS",
-                  style: TextStyle(color: primaryDarkColor, fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                text14("CAR DETAILS"),
                 const SizedBox(height: 2),
                 TextFormField(
                   cursorColor: primaryColor,
@@ -290,6 +282,9 @@ class CreateBookingView extends GetView<CreateBookingController> {
                 TextFormField(
                   cursorColor: primaryColor,
                   controller: controller.carYearController,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                  ],
                   enableInteractiveSelection: false,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
@@ -312,10 +307,7 @@ class CreateBookingView extends GetView<CreateBookingController> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "CUSTOMER DETAILS",
-                  style: TextStyle(color: primaryDarkColor, fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                text14("CUSTOMER DETAILS"),
                 const SizedBox(height: 2),
                 TextFormField(
                   cursorColor: primaryColor,
@@ -393,46 +385,42 @@ class CreateBookingView extends GetView<CreateBookingController> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "ASSIGN MECHANIC",
-                  style: TextStyle(color: primaryDarkColor, fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                text14("ASSIGN MECHANIC"),
                 const SizedBox(height: 8),
-                DropdownSearch<UserModel>(
-                  popupProps: PopupProps.menu(
-                    showSelectedItems: false,
-                    showSearchBox: true,
-                    // disabledItemFn: (String s) => s.startsWith('I'),
-                  ),
-                  // items: controller.typeList.value.data ?? [],
-                  itemAsString: (UserModel? u) => u?.name ?? "",
-                  compareFn: (UserModel? i, UserModel? s) => i == s,
-
-                  decoratorProps: DropDownDecoratorProps(
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      prefixIcon: Icon(
-                        Icons.settings,
-                        color: primaryDarkColor,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                      hintText: "Assign To...",
-                      hintStyle: TextStyle(color: primaryColor),
+                Obx(() =>  DropdownSearch<UserModel>(
+                    popupProps: PopupProps.menu(
+                      showSelectedItems: false,
+                      showSearchBox: true,
+                      // disabledItemFn: (String s) => s.startsWith('I'),
                     ),
+                    items: controller.arrayOfMechanic.value,
+                    itemAsString: (UserModel? u) => u?.name ?? "",
+                    compareFn: (UserModel? i, UserModel? s) => i == s,
+                    dropdownDecoratorProps: DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.settings,
+                          color: primaryDarkColor,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                        hintText: "Assign To...",
+                        hintStyle: TextStyle(color: primaryColor),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      controller.selectedMechanic = value;
+                    },
                   ),
-                  onChanged: (value) {
-                    // controller.selectedType = value;
-                  },
                 ),
                 const SizedBox(height: 20),
 
 
                 GestureDetector(
                   onTap: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      print(controller.titleController.text);
-                    }
+                      controller.submitBooking();
+
                   },
                   child: Container(
                     decoration: gradientShapeDecorator,

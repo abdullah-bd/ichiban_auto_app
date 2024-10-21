@@ -124,7 +124,8 @@ class RegistrationView extends GetView<RegistrationController> {
                             height: 16.h,
                           ),
                           // RadioGroup for admin or mechanic
-                
+
+                          text12("Register as",color: Colors.white),
                 
                           Obx(() =>
                               SegmentedButton<Role>(
@@ -132,15 +133,15 @@ class RegistrationView extends GetView<RegistrationController> {
                                 onSelectionChanged: (Set<Role> newSelection) {
                                   controller.selecterRole.value = newSelection.first;
                                 },
-                                segments: const <ButtonSegment<Role>>[
+                                segments:  <ButtonSegment<Role>>[
                                   ButtonSegment(
-                                    icon: Icon(Icons.car_repair),
-                                    label: Text('Mechanic'),
+                                    icon: Icon(Icons.car_repair,color: controller.selecterRole.value ==Role.admin?Colors.white:Colors.black,),
+                                    label: text12('Mechanic',color: controller.selecterRole.value ==Role.admin?Colors.white:Colors.black,),
                                     value: Role.mechanic,
                                   ),
                                   ButtonSegment(
-                                    icon: Icon(Icons.admin_panel_settings_outlined),
-                                    label: Text('Admin'),
+                                    icon: Icon(Icons.admin_panel_settings_outlined, color: controller.selecterRole.value ==Role.mechanic?Colors.white:Colors.black,),
+                                    label: text12('Admin',color: controller.selecterRole.value ==Role.mechanic?Colors.white:Colors.black,),
                                     value: Role.admin,
                                   ),
                 

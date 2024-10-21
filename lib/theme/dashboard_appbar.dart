@@ -5,6 +5,7 @@ import 'package:ichiban_auto/theme/text_widgets.dart';
 
 import '../../../../../theme/colors.dart';
 import '../app/modules/home/controllers/home_controller.dart';
+import '../app/routes/app_pages.dart';
 
 AppBar customAppbarWidgetDashboard(HomeController controller) {
   return AppBar(
@@ -25,15 +26,7 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                     flex: 2,
                     child: Row(
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            Scaffold.of(context).openDrawer();
-                          },
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.white,
-                          ),
-                        ),
+
                       ],
                     ),
                   ),
@@ -54,6 +47,7 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                       children: [
                         IconButton(
                             onPressed: () {
+                              Get.offAllNamed(Routes.AUTH);
                             },
                             icon: Padding(
                               padding: EdgeInsets.only(right: 4.0),

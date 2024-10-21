@@ -51,7 +51,7 @@ class Utils {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        title: 'On Snap!',
+        title: 'Error!',
         message:message,
         contentType: ContentType.failure,
       ),

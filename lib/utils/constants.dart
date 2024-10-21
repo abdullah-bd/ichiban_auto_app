@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../app/models/user_model.dart';
 import '../theme/Colors.dart';
 class Constants {
   static var headers = {'Accept': "application/json"};
@@ -115,5 +116,7 @@ class Constants {
       )
     ],
   );
+
+  static UserModel? user;
 }
 

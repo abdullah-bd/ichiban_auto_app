@@ -6,6 +6,8 @@ import '../modules/create_booking/bindings/create_booking_binding.dart';
 import '../modules/create_booking/views/create_booking_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/registration/bindings/registration_binding.dart';
+import '../modules/registration/views/registration_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.CREATE_BOOKING,
       page: () => const CreateBookingView(),
       binding: CreateBookingBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTRATION,
+      page: () => const RegistrationView(),
+      binding: RegistrationBinding(),
     ),
   ];
 }

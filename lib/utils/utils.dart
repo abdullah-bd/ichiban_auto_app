@@ -51,7 +51,7 @@ class Utils {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        title: 'On Snap!',
+        title: 'Error!',
         message:message,
         contentType: ContentType.failure,
       ),
@@ -159,3 +159,4 @@ bool validateStructure(String value) {
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(value);
 }
+enum Role { admin,mechanic }

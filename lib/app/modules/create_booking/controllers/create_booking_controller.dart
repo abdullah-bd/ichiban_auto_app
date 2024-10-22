@@ -1,7 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:ichiban_auto/app/data/data_provider.dart';
 import 'package:ichiban_auto/app/models/booking_details.dart';
 import 'package:ichiban_auto/app/models/car_details.dart';
 import 'package:ichiban_auto/app/models/customer_details.dart';
@@ -10,7 +10,7 @@ import 'package:ichiban_auto/utils/extensions.dart';
 import 'package:intl/intl.dart';
 
 class CreateBookingController extends GetxController {
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  final DataProvider _provider = DataProvider();
 
   final titleController = TextEditingController();
   final startDateController = TextEditingController();
@@ -40,15 +40,8 @@ class CreateBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _database.ref("mechanic").onValue.listen((event) {
-      var arrayOfMechanic = <UserModel>[];
-      var data = event.snapshot.value as Map;
-      data.forEach((key, value) {
-        arrayOfMechanic.add(UserModel.fromJson(value));
-      });
-      print(arrayOfMechanic);
-      this.arrayOfMechanic.clear();
-      this.arrayOfMechanic.value = arrayOfMechanic;
+    _provider.getMechanics().then((value) {
+      arrayOfMechanic.value = value;
     });
   }
 
@@ -135,13 +128,7 @@ class CreateBookingController extends GetxController {
             phoneNumber: customerPhoneController.text,
             email: customerEmailController.text));
 
-    _database
-        .ref("booking/${selectedMechanic?.email!.firebaseEmail}")
-        .push()
-        .set(bookingDetails.toJson())
-        .then((value) {
-      Get.back();
-      EasyLoading.showSuccess("Successfully created booking");
-    });
+    _provider.createBooking(
+        bookingDetails, selectedMechanic!.email?.firebaseEmail);
   }
 }

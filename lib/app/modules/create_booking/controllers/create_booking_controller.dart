@@ -81,9 +81,13 @@ class CreateBookingController extends GetxController {
 
   void pickEndTime(TimeOfDay time) {
     endTime.value = time;
+    if (!startDateTime.isBefore(endDateTime)) {
+      EasyLoading.showError("End time must be after start time");
+      return;
+    }
     endTimeController.text = formatTimeOfDay(time);
-    // TODO: check if start is before end. if its false then it's invalid. We can show proper alert text for this.
-    print('------- ${startDateTime.isBefore(endDateTime)}');
+
+    // print('------- ${startDateTime.isBefore(endDateTime)}');
   }
 
   String formattedDate(DateTime date) {

@@ -7,7 +7,7 @@ import '../../../../../theme/colors.dart';
 import '../app/modules/home/controllers/home_controller.dart';
 import '../app/routes/app_pages.dart';
 
-AppBar customAppbarWidgetDashboard(HomeController controller) {
+AppBar customAppbarWidgetDashboard(String role) {
   return AppBar(
       automaticallyImplyLeading: false,
       // Set this height
@@ -23,7 +23,7 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(children: [
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Row(
                       children: [
 
@@ -31,36 +31,30 @@ AppBar customAppbarWidgetDashboard(HomeController controller) {
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 5,
                     child: Center(
                       child: text16(
-                        "Ichiban Auto",
+                        "Ichiban Auto - ${role.toUpperCase()}",
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
                     ),
                   ),
                   Expanded(
-                    flex: 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Get.offAllNamed(Routes.AUTH);
-                            },
-                            icon: Padding(
-                              padding: EdgeInsets.only(right: 4.0),
-                              child: Icon(
-                                Icons.logout,
-                                color: Colors.white,
-                                size: 24,
-                              ),
+                    flex: 1,
+                    child: IconButton(
+                        onPressed: () {
+                          Get.offAllNamed(Routes.AUTH);
+                        },
+                        icon: Padding(
+                          padding: EdgeInsets.only(right: 4.0),
+                          child: Icon(
+                            Icons.logout,
+                            color: Colors.white,
+                            size: 24,
+                          ),
 
-                            )
                         )
-
-                      ],
                     ),
                   ),
                 ]),

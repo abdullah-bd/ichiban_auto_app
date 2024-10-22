@@ -17,7 +17,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbarWidgetDashboard(controller),
+      appBar: customAppbarWidgetDashboard(Constants.user?.role??''),
       body: Obx(() =>  SfCalendar(
           allowAppointmentResize: false,
           showNavigationArrow: true,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../app/models/user_model.dart';
 import '../theme/Colors.dart';
 class Constants {
@@ -25,7 +24,6 @@ class Constants {
   // static var baseUrl = "http://13.233.123.119";
 
 
-  static var baseUrl = dotenv.env['BASE_URL'];
 
   static var myPlannerColor = {
     "increase": const Color(0xFFEBFFF3),

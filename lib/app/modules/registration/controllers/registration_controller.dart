@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:ichiban_auto/utils/extensions.dart';
 import 'package:ichiban_auto/utils/utils.dart';
 
+import '../../../../utils/constants.dart';
+import '../../../models/user_model.dart';
 import '../../../routes/app_pages.dart';
 
 class RegistrationController extends GetxController {
@@ -85,6 +87,12 @@ class RegistrationController extends GetxController {
         "createdAt": DateTime.now().millisecondsSinceEpoch,
       });
 
+      Constants.user = UserModel(
+        name: nameController.text,
+        email: emailController.text,
+        role: selectedRole.value == Role.admin ? "admin" : "mechanic",
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+      );
       Get.offAllNamed(Routes.HOME);
     }).catchError((error) {
       EasyLoading.dismiss();

@@ -47,6 +47,7 @@ class CreateBookingController extends GetxController {
         arrayOfMechanic.add(UserModel.fromJson(value));
       });
       print(arrayOfMechanic);
+      this.arrayOfMechanic.clear();
       this.arrayOfMechanic.value = arrayOfMechanic;
     });
   }
@@ -114,8 +115,6 @@ class CreateBookingController extends GetxController {
 
   Future<void> submitBooking() async {
     if (!formKey.currentState!.validate()) return;
-    var path =
-        "${startDate.value!.day}d${startDate.value!.month}m${startDate.value!.year}y";
 
     var bookingDetails = BookingDetails(
         title: titleController.text,
@@ -133,7 +132,7 @@ class CreateBookingController extends GetxController {
             email: customerEmailController.text));
 
     _database
-        .ref("booking/$path/${selectedMechanic?.email!.firebaseEmail}")
+        .ref("booking/${selectedMechanic?.email!.firebaseEmail}")
         .push()
         .set(bookingDetails.toJson())
         .then((value) {

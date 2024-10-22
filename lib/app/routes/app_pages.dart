@@ -8,6 +8,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
 import '../modules/registration/views/registration_view.dart';
+import '../modules/show_booking/bindings/show_booking_binding.dart';
+import '../modules/show_booking/views/show_booking_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.REGISTRATION,
       page: () => const RegistrationView(),
       binding: RegistrationBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOW_BOOKING,
+      page: () => const ShowBookingView(),
+      binding: ShowBookingBinding(),
     ),
   ];
 }

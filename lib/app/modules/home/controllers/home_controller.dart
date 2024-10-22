@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:ichiban_auto/app/models/booking_details.dart';
+import 'package:ichiban_auto/utils/constants.dart';
+import 'package:ichiban_auto/utils/extensions.dart';
 
 class HomeController extends GetxController {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
@@ -10,24 +12,41 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _database.ref("booking").onValue.listen((event) {
-      var bookings = <BookingDetails>[];
-      var data = event.snapshot.value as Map;
-      for (var entry in data.entries) {
-        var honolulu = entry;
-        for (var booking in honolulu.value.entries) {
-          for (var bookingDetails in booking.value.entries) {
-            print(bookingDetails.value);
+    if (Constants.user?.role == "mechanic") {
+      _database
+          .ref("booking/${Constants.user!.email!.firebaseEmail}")
+          .onValue
+          .listen((event) {
+        var bookings = <BookingDetails>[];
+        var data = event.snapshot.value as Map;
+        for (var entry in data.entries) {
+          print(entry.value);
 
-            bookings.add(BookingDetails.fromJson(bookingDetails.value));
-          }
-          // arrayOfMechanic.add(BookingDetails.fromJson(booking));
+          bookings.add(BookingDetails.fromJson(entry.value));
         }
-      }
+        // arrayOfMechanic.add(BookingDetails.fromJson(booking));
 
-      this.bookings.value = bookings;
-      // this.arrayOfMechanic.value = arrayOfMechanic;
-    });
+        this.bookings.value = bookings;
+        // this.arrayOfMechanic.value = arrayOfMechanic;
+      });
+    } else {
+      _database.ref("booking").onValue.listen((event) {
+        var bookings = <BookingDetails>[];
+        var data = event.snapshot.value as Map;
+        for (var entry in data.entries) {
+          for (var booking in entry.value.entries) {
+            print(booking.value);
+
+            bookings.add(BookingDetails.fromJson(booking.value));
+
+            // arrayOfMechanic.add(BookingDetails.fromJson(booking));
+          }
+        }
+
+        this.bookings.value = bookings;
+        // this.arrayOfMechanic.value = arrayOfMechanic;
+      });
+    }
   }
 
   @override

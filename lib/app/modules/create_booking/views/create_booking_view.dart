@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:ichiban_auto/app/models/user_model.dart';
+import 'package:ichiban_auto/app/modules/auth/controllers/auth_controller.dart';
 import 'package:ichiban_auto/theme/dashboard_appbar.dart';
+import 'package:ichiban_auto/utils/extensions.dart';
 
 import '../../../../theme/Colors.dart';
 import '../../../../theme/text_widgets.dart';
@@ -367,7 +369,7 @@ class CreateBookingView extends GetView<CreateBookingController> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter customer email address';
-                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    } else if (!value.isValidEmail()) {
                       return 'Please enter a valid email address';
                     }
                     return null;

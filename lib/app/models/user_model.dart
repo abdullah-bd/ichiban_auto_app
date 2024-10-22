@@ -42,10 +42,5 @@ class UserModel {
     map['role'] = _role;
     return map;
   }
-  @override
-  String toString() {
-
-    return 'UserModel(createdAt: $_createdAt, email: $_email, name: $_name, role: $_role)';
-  }
 
 }

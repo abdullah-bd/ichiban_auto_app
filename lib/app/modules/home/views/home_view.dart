@@ -18,35 +18,36 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbarWidgetDashboard(controller),
-      body: SfCalendar(
-        allowAppointmentResize: false,
-        showNavigationArrow: true,
-        showCurrentTimeIndicator: true,
-        todayHighlightColor: primaryDarkColor,
-        view: CalendarView.month,
-        backgroundColor: whitish,
-        selectionDecoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: primaryDarkColor, width: 2),
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
-          shape: BoxShape.rectangle,
+      body: Obx(() =>  SfCalendar(
+          allowAppointmentResize: false,
+          showNavigationArrow: true,
+          showCurrentTimeIndicator: true,
+          todayHighlightColor: primaryDarkColor,
+          view: CalendarView.month,
+          backgroundColor: whitish,
+          selectionDecoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(color: primaryDarkColor, width: 2),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            shape: BoxShape.rectangle,
+          ),
+          allowedViews: const [
+            CalendarView.day,
+            CalendarView.week,
+            CalendarView.month,
+          ],
+          allowViewNavigation: true,
+          timeSlotViewSettings: const TimeSlotViewSettings(
+            timeIntervalHeight: -1,
+          ),
+          monthViewSettings: const MonthViewSettings(
+            showAgenda: true,
+            dayFormat: 'EEE',
+            appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
+          ),
+          dataSource: BookingDetailsDataSource(controller.bookings.value),
+          onTap: calendarTapped,
         ),
-        allowedViews: const [
-          CalendarView.day,
-          CalendarView.week,
-          CalendarView.month,
-        ],
-        allowViewNavigation: true,
-        timeSlotViewSettings: const TimeSlotViewSettings(
-          timeIntervalHeight: -1,
-        ),
-        monthViewSettings: const MonthViewSettings(
-          showAgenda: true,
-          dayFormat: 'EEE',
-          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-        ),
-        dataSource: BookingDetailsDataSource(dummyData),
-        onTap: calendarTapped,
       ),
       floatingActionButton: Offstage(
         offstage: Constants.user?.role == "mechanic",

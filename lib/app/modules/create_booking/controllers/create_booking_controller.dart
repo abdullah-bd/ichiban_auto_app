@@ -121,6 +121,7 @@ class CreateBookingController extends GetxController {
         title: titleController.text,
         startDateTime: startDateTime,
         endDateTime: endDateTime,
+        mechanicDetails: selectedMechanic!,
         carDetails: CarDetails(
             make: carMakeController.text,
             model: carModelController.text,

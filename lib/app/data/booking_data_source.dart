@@ -12,25 +12,25 @@ class BookingDetailsDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return _getBookingDetailsData(index).startDateTime;
+    return _getBookingDetailsData(index).startDateTime!;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return _getBookingDetailsData(index).endDateTime;
+    return _getBookingDetailsData(index).endDateTime!;
   }
 
   @override
   String getSubject(int index) {
-    return _getBookingDetailsData(index).title;
+    return _getBookingDetailsData(index).title!;
   }
 
   CarDetails getCarDetails(int index) {
-    return _getBookingDetailsData(index).carDetails;
+    return _getBookingDetailsData(index).carDetails!;
   }
 
   CustomerDetails getCustomerDetails(int index) {
-    return _getBookingDetailsData(index).customerDetails;
+    return _getBookingDetailsData(index).customerDetails!;
   }
 
   BookingDetails _getBookingDetailsData(int index) {

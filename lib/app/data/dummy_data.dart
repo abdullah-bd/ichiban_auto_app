@@ -1,6 +1,7 @@
 import 'package:ichiban_auto/app/models/booking_details.dart';
 import 'package:ichiban_auto/app/models/car_details.dart';
 import 'package:ichiban_auto/app/models/customer_details.dart';
+import 'package:ichiban_auto/app/models/user_model.dart';
 
 final List<BookingDetails> dummyData = [
   BookingDetails(
@@ -17,12 +18,23 @@ final List<BookingDetails> dummyData = [
       name: 'John Doe',
       phoneNumber: '555-1234',
       email: 'john@example.com',
+    ), mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+    createdAt:DateTime.now().millisecondsSinceEpoch,
+    role: 'mechanic',
     ),
   ),
   BookingDetails(
     title: 'Engine Oil Change',
     startDateTime: DateTime(2024, 10, 3, 10, 00),
     endDateTime: DateTime(2024, 10, 3, 14, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Honda',
       model: 'Civic',
@@ -39,6 +51,12 @@ final List<BookingDetails> dummyData = [
     title: 'Brake Pad Replacement',
     startDateTime: DateTime(2024, 10, 5, 8, 00),
     endDateTime: DateTime(2024, 10, 5, 12, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Ford',
       model: 'Mustang',
@@ -55,6 +73,12 @@ final List<BookingDetails> dummyData = [
     title: 'AC Service',
     startDateTime: DateTime(2024, 10, 7, 13, 00),
     endDateTime: DateTime(2024, 10, 7, 16, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'BMW',
       model: 'X5',
@@ -71,6 +95,12 @@ final List<BookingDetails> dummyData = [
     title: 'Battery Replacement',
     startDateTime: DateTime(2024, 10, 9, 14, 00),
     endDateTime: DateTime(2024, 10, 9, 17, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Nissan',
       model: 'Altima',
@@ -87,6 +117,12 @@ final List<BookingDetails> dummyData = [
     title: 'Wheel Alignment',
     startDateTime: DateTime(2024, 10, 10, 9, 00),
     endDateTime: DateTime(2024, 10, 10, 12, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Toyota',
       model: 'Camry',
@@ -103,6 +139,12 @@ final List<BookingDetails> dummyData = [
     title: 'Full Body Wash',
     startDateTime: DateTime(2024, 10, 12, 11, 00),
     endDateTime: DateTime(2024, 10, 12, 13, 30),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Honda',
       model: 'Accord',
@@ -119,6 +161,12 @@ final List<BookingDetails> dummyData = [
     title: 'Tire Replacement',
     startDateTime: DateTime(2024, 10, 14, 10, 00),
     endDateTime: DateTime(2024, 10, 14, 14, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Nissan',
       model: 'Maxima',
@@ -135,6 +183,12 @@ final List<BookingDetails> dummyData = [
     title: 'Suspension Check',
     startDateTime: DateTime(2024, 10, 15, 13, 00),
     endDateTime: DateTime(2024, 10, 15, 17, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Ford',
       model: 'F-150',
@@ -151,6 +205,12 @@ final List<BookingDetails> dummyData = [
     title: 'Fuel Pump Service',
     startDateTime: DateTime(2024, 10, 17, 8, 00),
     endDateTime: DateTime(2024, 10, 17, 12, 00),
+    mechanicDetails: UserModel(
+      name: 'John Doe',
+      email: 'dev@a.com',
+      createdAt:DateTime.now().millisecondsSinceEpoch,
+      role: 'mechanic',
+    ),
     carDetails: CarDetails(
       make: 'Toyota',
       model: 'Corolla',

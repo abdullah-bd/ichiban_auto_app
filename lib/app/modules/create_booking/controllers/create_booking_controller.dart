@@ -10,8 +10,10 @@ import 'package:ichiban_auto/utils/extensions.dart';
 import 'package:intl/intl.dart';
 
 class CreateBookingController extends GetxController {
+  /// An instance of `DataProvider` to handle data operations.
   final DataProvider _provider = DataProvider();
 
+  /// Controllers for various input fields in the booking form.
   final titleController = TextEditingController();
   final startDateController = TextEditingController();
   final startTimeController = TextEditingController();
@@ -27,14 +29,19 @@ class CreateBookingController extends GetxController {
   final customerPhoneController = TextEditingController();
   final customerEmailController = TextEditingController();
 
+  /// Observables for start and end dates and times.
   var startDate = Rxn<DateTime>();
   var startTime = Rxn<TimeOfDay>();
   var endDate = Rxn<DateTime>();
   var endTime = Rxn<TimeOfDay>();
 
+  /// A key to identify the booking form.
   final formKey = GlobalKey<FormState>();
 
+  /// An observable list of mechanics.
   var arrayOfMechanic = <UserModel>[].obs;
+
+  /// The selected mechanic for the booking.
   UserModel? selectedMechanic;
 
   @override
@@ -50,7 +57,7 @@ class CreateBookingController extends GetxController {
     super.onClose();
   }
 
-  // Function to set the selected date
+  /// Function to set the selected date
   void pickStartDate(DateTime date) {
     startDate.value = date;
     startDateController.text = formattedDate(date);
@@ -58,6 +65,7 @@ class CreateBookingController extends GetxController {
     endDateController.text = formattedDate(date);
   }
 
+  /// Sets the selected start date and updates the corresponding controllers.
   void pickEndDate(DateTime date) {
     if (startDate.value != null && date.isBefore(startDate.value!)) {
       startDate.value = null;
@@ -80,7 +88,6 @@ class CreateBookingController extends GetxController {
     }
     endTimeController.text = formatTimeOfDay(time);
 
-    // print('------- ${startDateTime.isBefore(endDateTime)}');
   }
 
   String formattedDate(DateTime date) {
@@ -109,6 +116,8 @@ class CreateBookingController extends GetxController {
       selectedTime.minute,
     );
   }
+
+  /// Submits the booking details to the data provider.
 
   Future<void> submitBooking() async {
     if (!formKey.currentState!.validate()) return;

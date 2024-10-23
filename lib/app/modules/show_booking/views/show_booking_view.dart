@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:ichiban_auto/app/models/booking_details.dart';
+import 'package:ichiban_auto/theme/image_assets.dart';
 import 'package:ichiban_auto/theme/text_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -14,11 +14,18 @@ class ShowBookingView extends GetView<ShowBookingController> {
 
   @override
   Widget build(BuildContext context) {
+    /// Get the booking details from the calendar tap.
     final details = Get.arguments as CalendarTapDetails;
     final BookingDetails booking = details.appointments![0] as BookingDetails;
-    String date = DateFormat('MMMM dd, yyyy').format(booking.startDateTime??DateTime.now()).toString();
-    String start = DateFormat('hh:mm a').format(booking.startDateTime??DateTime.now()).toString();
-    String end = DateFormat('hh:mm a').format(booking.endDateTime??DateTime.now()).toString();
+    String date = DateFormat('MMMM dd, yyyy')
+        .format(booking.startDateTime ?? DateTime.now())
+        .toString();
+    String start = DateFormat('hh:mm a')
+        .format(booking.startDateTime ?? DateTime.now())
+        .toString();
+    String end = DateFormat('hh:mm a')
+        .format(booking.endDateTime ?? DateTime.now())
+        .toString();
     final car = booking.carDetails;
     final customer = booking.customerDetails;
     final mechanic = booking.mechanicDetails;
@@ -32,23 +39,24 @@ class ShowBookingView extends GetView<ShowBookingController> {
               height: 250,
               child: Stack(
                 children: [
-
                   Image.asset(
                     height: 250,
-                    'assets/images/car_back.jpg',
+                   carBack,
                     fit: BoxFit.fill,
                   ),
                   Positioned(
                     top: 20,
                     left: 5,
-                    child:  IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.white,),
-                        onPressed: () {
-                          Get.back();
-                        },
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
                       ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
                   ),
-
                 ],
               ),
             ),
@@ -57,9 +65,7 @@ class ShowBookingView extends GetView<ShowBookingController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  text24(
-                    booking.title??'N/A'
-                  ),
+                  text24(booking.title ?? 'N/A'),
                   const Divider(),
                   detailTile(Icons.calendar_month_rounded, date),
                   detailTile(Icons.access_time_filled_sharp, "$start to $end"),
@@ -67,30 +73,31 @@ class ShowBookingView extends GetView<ShowBookingController> {
                     "Car Details",
                   ),
                   const Divider(),
-                  detailTile(Icons.car_repair, "${car?.make} ${car?.model} - ${car?.year}"),
-                  detailTile(Icons.local_play_outlined, car?.registrationPlate??"N/A"),
+                  detailTile(Icons.car_repair,
+                      "${car?.make} ${car?.model} - ${car?.year}"),
+                  detailTile(Icons.local_play_outlined,
+                      car?.registrationPlate ?? "N/A"),
                   text20(
                     "Customer Details",
                   ),
                   const Divider(),
-                  detailTile(Icons.person, customer?.name??'N/A'),
-                  detailTile(Icons.phone, customer?.phoneNumber??'N/A'),
-                  detailTile(Icons.email_rounded, customer?.email??'N/A'),
-
-                  Constants.user?.role == "admin"?
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          text20(
-                            "Assigned Mechanic",
-                          ),
-                          const Divider(),
-                          detailTile(Icons.person, mechanic?.name??'N/A'),
-                          detailTile(Icons.email_rounded, mechanic?.email??'N/A'),
-                        ],
-                      )
+                  detailTile(Icons.person, customer?.name ?? 'N/A'),
+                  detailTile(Icons.phone, customer?.phoneNumber ?? 'N/A'),
+                  detailTile(Icons.email_rounded, customer?.email ?? 'N/A'),
+                  Constants.user?.role == "admin"
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            text20(
+                              "Assigned Mechanic",
+                            ),
+                            const Divider(),
+                            detailTile(Icons.person, mechanic?.name ?? 'N/A'),
+                            detailTile(
+                                Icons.email_rounded, mechanic?.email ?? 'N/A'),
+                          ],
+                        )
                       : Container(),
-
                 ],
               ),
             ),
@@ -100,6 +107,7 @@ class ShowBookingView extends GetView<ShowBookingController> {
     );
   }
 
+  /// Creates a `ListTile` widget for displaying details.
   ListTile detailTile(IconData icon, String text) {
     return ListTile(
       contentPadding: EdgeInsets.zero,

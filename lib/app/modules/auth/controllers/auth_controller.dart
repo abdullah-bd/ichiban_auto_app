@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ichiban_auto/app/data/data_provider.dart';
 import 'package:ichiban_auto/utils/extensions.dart';
+import 'package:ichiban_auto/utils/utils.dart';
 
 class AuthController extends GetxController {
   final DataProvider _provider = DataProvider();
 
-  var emailController = TextEditingController(text: "a@b.com");
+  var emailController = TextEditingController();
 
-  var passwordController = TextEditingController(text: "11111111");
+  var passwordController = TextEditingController();
 
   RxBool obscure = true.obs;
 
@@ -29,11 +30,15 @@ class AuthController extends GetxController {
 
   Future<void> signInWithEmailAndPassword() async {
     if(emailController.text.isValidEmail() == false) {
-      Get.snackbar("Error", "Please provide a valid email!");
+      Utils.showControllerError( "Please provide a valid email!");
+      return;
+    }
+    if(passwordController.text.isEmpty) {
+      Utils.showControllerError("Please provide a password!");
       return;
     }
     if(passwordController.text.length < 8) {
-      Get.snackbar("Error", "Password must be at least 8 characters long!");
+      Utils.showControllerError("Password must be at least 8 characters long!");
       return;
     }
     _provider.signIn(emailController.text, passwordController.text);

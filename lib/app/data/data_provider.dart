@@ -59,53 +59,14 @@ class DataProvider extends GetConnect {
 
   Future<List<UserModel>> getMechanics() async {
     var arrayOfMechanic = <UserModel>[];
-    await _database.ref("mechanic").onValue.listen((event) {
-      var data = event.snapshot.value as Map;
-      data.forEach((key, value) {
+
+    var data = await _database.ref("mechanic").get();
+    if (data.exists) {
+      var dataValue = data.value as Map;
+      dataValue.forEach((key, value) {
         arrayOfMechanic.add(UserModel.fromJson(value));
       });
-    });
+    }
     return arrayOfMechanic;
-  }
-
-  Future<List<BookingDetails>> getAllBooking() async{
-    var bookings = <BookingDetails>[];
-
-    _database.ref("booking").onValue.listen((event) {
-      var data = event.snapshot.value as Map;
-      for (var entry in data.entries) {
-        for (var booking in entry.value.entries) {
-          print(booking.value);
-
-          bookings.add(BookingDetails.fromJson(booking.value));
-
-          // arrayOfMechanic.add(BookingDetails.fromJson(booking));
-        }
-      }
-
-
-      // this.arrayOfMechanic.value = arrayOfMechanic;
-    });
-    return bookings;
-  }
-
-  Future<List<BookingDetails>> getMechanicsBooking() async {
-    var bookings = <BookingDetails>[];
-    _database
-        .ref("booking/${Constants.user!.email!.firebaseEmail}")
-        .onValue
-        .listen((event) {
-
-      var data = event.snapshot.value as Map;
-      for (var entry in data.entries) {
-        print(entry.value);
-
-        bookings.add(BookingDetails.fromJson(entry.value));
-      }
-      // arrayOfMechanic.add(BookingDetails.fromJson(booking));
-
-      // this.arrayOfMechanic.value = arrayOfMechanic;
-    });
-    return bookings;
   }
 }

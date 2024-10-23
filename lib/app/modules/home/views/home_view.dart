@@ -67,8 +67,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   void calendarTapped(CalendarTapDetails details) {
-    if (details.targetElement == CalendarElement.appointment ||
-        details.targetElement == CalendarElement.agenda) {
+    if (details.targetElement == CalendarElement.appointment) {
       Get.toNamed(Routes.SHOW_BOOKING, arguments: details);
     }
   }

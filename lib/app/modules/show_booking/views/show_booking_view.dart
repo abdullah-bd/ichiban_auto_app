@@ -6,6 +6,7 @@ import 'package:ichiban_auto/theme/text_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../../../utils/constants.dart';
 import '../controllers/show_booking_controller.dart';
 
 class ShowBookingView extends GetView<ShowBookingController> {
@@ -20,6 +21,7 @@ class ShowBookingView extends GetView<ShowBookingController> {
     String end = DateFormat('hh:mm a').format(booking.endDateTime??DateTime.now()).toString();
     final car = booking.carDetails;
     final customer = booking.customerDetails;
+    final mechanic = booking.mechanicDetails;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -74,6 +76,21 @@ class ShowBookingView extends GetView<ShowBookingController> {
                   detailTile(Icons.person, customer?.name??'N/A'),
                   detailTile(Icons.phone, customer?.phoneNumber??'N/A'),
                   detailTile(Icons.email_rounded, customer?.email??'N/A'),
+
+                  Constants.user?.role == "admin"?
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          text20(
+                            "Assigned Mechanic",
+                          ),
+                          const Divider(),
+                          detailTile(Icons.person, mechanic?.name??'N/A'),
+                          detailTile(Icons.email_rounded, mechanic?.email??'N/A'),
+                        ],
+                      )
+                      : Container(),
+
                 ],
               ),
             ),

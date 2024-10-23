@@ -33,6 +33,8 @@ class RegistrationController extends GetxController {
 
   var emailController = TextEditingController();
 
+  var formKey = GlobalKey<FormState>();
+
   @override
   void onInit() {
     super.onInit();
@@ -49,22 +51,7 @@ class RegistrationController extends GetxController {
   }
 
   Future<void> register() async {
-    if (nameController.text.isEmpty) {
-      Utils.getxSnackbar("Name is required!", Colors.red);
-      return;
-    }
-
-    if (emailController.text.isEmpty || !emailController.text.isValidEmail()) {
-      Utils.getxSnackbar("Please provide a valid email!", Colors.red);
-      return;
-    }
-    if (passwordController.text != passwordConfirmController.text) {
-      Utils.getxSnackbar("Password does not match!", Colors.red);
-      return;
-    }
-
-    if (passwordController.text.length < 8) {
-      Utils.getxSnackbar("Password must be at least 8 characters!", Colors.red);
+    if (!formKey.currentState!.validate()) {
       return;
     }
 

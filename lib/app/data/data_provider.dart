@@ -41,7 +41,7 @@ class DataProvider extends GetConnect {
     }).catchError((error) {
       EasyLoading.dismiss();
       printError(info: error.toString());
-      Utils.showControllerError(error);
+      Utils.showControllerError(error.toString().contains("]")?error.toString().split("]")[1]:error.toString());
     });
   }
 

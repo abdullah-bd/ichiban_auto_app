@@ -6,30 +6,40 @@ import 'package:get/get.dart';
 import 'package:ichiban_auto/utils/extensions.dart';
 import 'package:ichiban_auto/utils/utils.dart';
 
+import '../../../../utils/constants.dart';
+import '../../../models/user_model.dart';
 import '../../../routes/app_pages.dart';
 
 class RegistrationController extends GetxController {
-
-
+  /// An instance of `FirebaseAuth` to handle authentication.
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  /// An instance of `FirebaseDatabase` to handle database operations.
   final FirebaseDatabase _database = FirebaseDatabase.instance;
 
-
-  var radioValue = "1".obs;
-
+  /// An observable for the selected role (admin or mechanic).
   var selectedRole = Role.mechanic.obs;
 
+  /// An observable boolean to toggle the visibility of the password.
   var obscure = true.obs;
 
+  /// An observable boolean to toggle the visibility of the confirm password.
   var obscureConfirm = true.obs;
 
+  /// A `TextEditingController` for the password input field.
   var passwordController = TextEditingController();
+
+  /// A `TextEditingController` for the confirm password input field.
   var passwordConfirmController = TextEditingController();
 
+  /// A `TextEditingController` for the name input field.
   var nameController = TextEditingController();
 
+  /// A `TextEditingController` for the email input field.
   var emailController = TextEditingController();
+
+  /// A key to identify the registration form.
+  var formKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
@@ -46,32 +56,26 @@ class RegistrationController extends GetxController {
     super.onClose();
   }
 
+  /// Registers a new user with the provided information.
+  ///
+  /// This method validates the form, creates a new user with Firebase
+  /// authentication, and stores the user information in the Firebase database
   Future<void> register() async {
-    if (nameController.text.isEmpty) {
-      Utils.getxSnackbar("Name is required!", Colors.red);
-      return;
-    }
-
-    if (emailController.text.isEmpty || !emailController.text.isValidEmail()) {
-      Utils.getxSnackbar("Please provide a valid email!", Colors.red);
-      return;
-    }
-    if (passwordController.text != passwordConfirmController.text) {
-      Utils.getxSnackbar("Password does not match!", Colors.red);
-      return;
-    }
-
-    if (passwordController.text.length < 8) {
-      Utils.getxSnackbar("Password must be at least 8 characters!", Colors.red);
+    if (!formKey.currentState!.validate()) {
       return;
     }
 
     EasyLoading.show();
 
-    await _auth.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text).then((value) async {
+    await _auth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((value) async {
       EasyLoading.dismiss();
       var userType = selectedRole.value == Role.admin ? "admin" : "mechanic";
-      await _database.ref("$userType/${emailController.text.firebaseEmail}").set({
+      await _database
+          .ref("$userType/${emailController.text.firebaseEmail}")
+          .set({
         "name": nameController.text,
         "email": emailController.text,
         "role": selectedRole.value == Role.admin ? "admin" : "mechanic",
@@ -85,13 +89,17 @@ class RegistrationController extends GetxController {
         "createdAt": DateTime.now().millisecondsSinceEpoch,
       });
 
+      Constants.user = UserModel(
+        name: nameController.text,
+        email: emailController.text,
+        role: selectedRole.value == Role.admin ? "admin" : "mechanic",
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+      );
       Get.offAllNamed(Routes.HOME);
     }).catchError((error) {
       EasyLoading.dismiss();
       printError(info: error.toString());
       Utils.showControllerError(error);
     });
-
-
   }
 }

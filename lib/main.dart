@@ -10,12 +10,18 @@ import 'app/routes/app_pages.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  // Ensures that widget binding is initialized before running the app.
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initializes Firebase with the default options for the current platform.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Configures the loading settings using a utility function.
   Utils.configLoading();
 
+  // Runs the Flutter application with screen size adaptation and routing.
   runApp(
     ScreenUtilInit(
       designSize: const Size(360, 800),
@@ -23,12 +29,17 @@ Future<void> main() async {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          //You can use the library anywhere in the app even in theme
+          // Applies the custom theme to the application.
           theme: theme(),
+          // Sets the home widget of the application.
           home: child,
+          // Hides the debug banner in the top right corner.
           debugShowCheckedModeBanner: false,
+          // Initializes the EasyLoading library.
           builder: EasyLoading.init(),
+          // Sets the initial route of the application.
           initialRoute: AppPages.INITIAL,
+          // Defines the routes for the application.
           getPages: AppPages.routes,
         );
       },

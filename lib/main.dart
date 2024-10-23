@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,11 @@ import 'firebase_options.dart';
 Future<void> main() async {
   // Ensures that widget binding is initialized before running the app.
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Sets the preferred orientation for the application.
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   // Initializes Firebase with the default options for the current platform.
   await Firebase.initializeApp(
